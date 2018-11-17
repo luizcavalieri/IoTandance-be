@@ -12,3 +12,9 @@
 hs_err_pid*
 
 .idea
+
+# excluding executable
+Iotendance-be
+
+# environment variables
+.env

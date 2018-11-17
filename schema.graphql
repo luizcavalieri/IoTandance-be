@@ -1,0 +1,26 @@
+type User {
+    user_id: ID!
+    username: String!
+    user_fname: String!
+    user_lname: String!
+    role_id: Integer!
+    last_access_tm: String!
+    password: String!
+    role_cd: String!
+    active_yn: Boolean!
+}
+
+type Query {
+    users: [User!]!
+}
+
+input NewUser {
+    username: String!
+    user_fname: String!
+    user_lname: String!
+    password: String!
+}
+
+type Mutation {
+    createUser(input: NewUser): User!
+}

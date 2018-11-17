@@ -2,25 +2,47 @@ package people
 
 import (
 	"encoding/json"
-	"net/http"
-	"github.com/gorilla/mux"
 	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+
+	"github.com/luizcavalieri/IoTandance-be/driver"
+	"github.com/luizcavalieri/IoTandance-be/global"
 )
 
-var people []Person
+type Controller struct {
 
-func InitPeople() {
-	people = append(people, Person{ID: "1", Firstname: "John", Lastname: "Doe", Address: &Address{City: "City X", State: "State X"}})
-	people = append(people, Person{ID: "2", Firstname: "Koko", Lastname: "Doe", Address: &Address{City: "City Z", State: "State Y"}})
 }
+
+var people []User
 
 func GetPeople(w http.ResponseWriter, r *http.Request) {
 	log.Println("Get people")
+	driver.DbInit()
+	var person User
+	people = []User{}
+
+	rows, err := driver.Db.Query("SELECT * from iotendance.users")
+	global.LogFatal(err)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&person.ID, &person.Username, &person.FirstName,
+			&person.LastName, &person.RoleId, &person.LastAccess,
+			&person.Password, &person.RoleCd, &person.Active)
+		global.LogFatal(err)
+
+		people = append(people, person)
+	}
+
+
 	json.NewEncoder(w).Encode(people)
 }
 
 // Display a single data
-func GetPerson(w http.ResponseWriter, r *http.Request) {
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Get person", params["id"])
 	for _, item := range people {
@@ -29,15 +51,15 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	json.NewEncoder(w).Encode(&Person{})
+	json.NewEncoder(w).Encode(&User{})
 }
 
 
 // create a new item
-func CreatePerson(w http.ResponseWriter, r *http.Request) {
+func CreateUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Create people", params["id"])
-	var person Person
+	var person User
 	_ = json.NewDecoder(r.Body).Decode(&person)
 	person.ID = params["id"]
 	people = append(people, person)
@@ -46,7 +68,7 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 
 
 // Delete an item
-func DeletePerson(w http.ResponseWriter, r *http.Request) {
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Delete people", params["id"])
 	for index, item := range people {

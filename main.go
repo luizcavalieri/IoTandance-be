@@ -1,25 +1,27 @@
 package main
 
-import(
-	"net/http"
+import (
 	"github.com/gorilla/mux"
+	"github.com/subosito/gotenv"
 	"log"
-	ppl "github.com/luizcavalieri/iotendance-be/service/people"
+	"net/http"
+
+	ppl "github.com/luizcavalieri/IoTandance-be/service/people"
 )
 
-
-var people []ppl.Person
+func init() {
+	gotenv.Load()
+}
 
 // main function to boot up everything
 func main() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/people", ppl.GetPeople).Methods("GET")
-	router.HandleFunc("/people/{id}", ppl.GetPerson).Methods("GET")
-	router.HandleFunc("/people/{id}", ppl.CreatePerson).Methods("POST")
-	router.HandleFunc("/people/{id}", ppl.DeletePerson).Methods("DELETE")
+	router.HandleFunc("/people", ppl.GetUser).Methods("GET")
+	router.HandleFunc("/people/{id}", ppl.GetUser).Methods("GET")
+	router.HandleFunc("/people/{id}", ppl.CreateUser).Methods("POST")
+	router.HandleFunc("/people/{id}", ppl.DeleteUser).Methods("DELETE")
 
-	ppl.InitPeople()
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8085", router))
 }
 
