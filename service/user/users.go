@@ -1,4 +1,4 @@
-package people
+package user
 
 import (
 	"encoding/json"
@@ -29,9 +29,9 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&person.ID, &person.Username, &person.FirstName,
-			&person.LastName, &person.RoleId, &person.LastAccess,
-			&person.Password, &person.RoleCd, &person.Active)
+		err := rows.Scan(&person.UserID, &person.Username, &person.UserFname,
+			&person.UserLname, &person.RoleId, &person.LastAccessTm,
+			&person.Password, &person.RoleCd, &person.ActiveYN)
 		global.LogFatal(err)
 
 		people = append(people, person)
@@ -46,7 +46,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Get person", params["id"])
 	for _, item := range people {
-		if item.ID == params["id"] {
+		if item.UserID == params["id"] {
 			json.NewEncoder(w).Encode(item)
 			return
 		}
@@ -61,7 +61,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Create people", params["id"])
 	var person User
 	_ = json.NewDecoder(r.Body).Decode(&person)
-	person.ID = params["id"]
+	person.UserID = params["id"]
 	people = append(people, person)
 	json.NewEncoder(w).Encode(people)
 }
@@ -72,7 +72,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Delete people", params["id"])
 	for index, item := range people {
-		if item.ID == params["id"] {
+		if item.UserID == params["id"] {
 			people = append(people[:index], people[index+1:]...)
 			break
 		}

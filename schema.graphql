@@ -3,7 +3,7 @@ type User {
     username: String!
     user_fname: String!
     user_lname: String!
-    role_id: Integer!
+    role_id: Int!
     last_access_tm: String!
     password: String!
     role_cd: String!

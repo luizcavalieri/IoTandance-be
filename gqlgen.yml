@@ -1,0 +1,17 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+- schema.graphql
+exec:
+  filename: gqlgen/generated.go
+model:
+  filename: gqlgen/models_gen.go
+resolver:
+  filename: gqlgen/resolver.go
+  type: Resolver
+models:
+  User:
+    model: github.com/luizcavalieri/IoTendance-be/service/user.User

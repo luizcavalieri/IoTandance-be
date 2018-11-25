@@ -17,6 +17,8 @@ hs_err_pid*
 Iotendance-be
 
 # environment variables
-.env
+/.env
 
+# External libraries
+./vendor/*
 vendor
