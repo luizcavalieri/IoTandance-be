@@ -10,10 +10,9 @@ import (
 
 	graphql "github.com/99designs/gqlgen/graphql"
 	introspection "github.com/99designs/gqlgen/graphql/introspection"
+	user "github.com/luizcavalieri/IoTendance-be/service/user"
 	gqlparser "github.com/vektah/gqlparser"
 	ast "github.com/vektah/gqlparser/ast"
-
-	user "github.com/luizcavalieri/IoTendance-be/service/user"
 )
 
 // NewExecutableSchema creates an ExecutableSchema from the ResolverRoot interface.
