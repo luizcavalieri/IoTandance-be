@@ -12,7 +12,6 @@ import (
 )
 
 type Controller struct {
-
 }
 
 var people []User
@@ -23,7 +22,7 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 	var person User
 	people = []User{}
 
-	rows, err := driver.Db.Query("SELECT * from iotendance.users")
+	rows, err := driver.Db.Query("SELECT * from users")
 	global.LogFatal(err)
 
 	defer rows.Close()
@@ -37,14 +36,13 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 		people = append(people, person)
 	}
 
-
 	json.NewEncoder(w).Encode(people)
 }
 
 // Display a single data
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	log.Println("Get person", params["id"])
+	log.Println("Get user", params["id"])
 	for _, item := range people {
 		if item.ID == params["id"] {
 			json.NewEncoder(w).Encode(item)
@@ -53,7 +51,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(&User{})
 }
-
 
 // create a new item
 func CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +62,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	people = append(people, person)
 	json.NewEncoder(w).Encode(people)
 }
-
 
 // Delete an item
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -79,4 +75,3 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(people)
 	}
 }
-

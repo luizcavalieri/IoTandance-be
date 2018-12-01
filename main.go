@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	ppl "github.com/luizcavalieri/IoTandance-be/service/people"
+	ppl "github.com/luizcavalieri/IoTendance-be/service/people"
 )
 
 func init() {
@@ -17,11 +17,10 @@ func init() {
 func main() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/people", ppl.GetUser).Methods("GET")
+	router.HandleFunc("/people", ppl.GetPeople).Methods("GET")
 	router.HandleFunc("/people/{id}", ppl.GetUser).Methods("GET")
 	router.HandleFunc("/people/{id}", ppl.CreateUser).Methods("POST")
 	router.HandleFunc("/people/{id}", ppl.DeleteUser).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8085", router))
 }
-
