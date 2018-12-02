@@ -1,6 +1,7 @@
-package people
+package user
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -9,18 +10,29 @@ import (
 
 	"github.com/luizcavalieri/IoTandance-be/driver"
 	"github.com/luizcavalieri/IoTandance-be/global"
+
 )
 
 type Controller struct {
 }
 
-var people []User
+var users []User
 
-func GetPeople(w http.ResponseWriter, r *http.Request) {
-	log.Println("Get people")
+type userResolver struct {
+	u *User
+}
+
+//func (_ *glob.Query) Hello() string { return "Hello, world!" }
+
+func (r *helloWorldResolver) Hello(ctx context.Context) (string, error) {
+	return "Hello world!", nil
+}
+
+func (_ *global.Query) GetUsers(w http.ResponseWriter, r *http.Request) {
+	log.Println("Get users")
 	driver.DbInit()
 	var person User
-	people = []User{}
+	users = []User{}
 
 	rows, err := driver.Db.Query("SELECT * from users")
 	global.LogFatal(err)
@@ -33,17 +45,17 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 			&person.Password, &person.RoleCd, &person.Active)
 		global.LogFatal(err)
 
-		people = append(people, person)
+		users = append(users, person)
 	}
 
-	json.NewEncoder(w).Encode(people)
+	json.NewEncoder(w).Encode(users)
 }
 
 // Display a single data
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	log.Println("Get user", params["id"])
-	for _, item := range people {
+	for _, item := range users {
 		if item.ID == params["id"] {
 			json.NewEncoder(w).Encode(item)
 			return
@@ -55,23 +67,23 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // create a new item
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	log.Println("Create people", params["id"])
+	log.Println("Create users", params["id"])
 	var person User
 	_ = json.NewDecoder(r.Body).Decode(&person)
 	person.ID = params["id"]
-	people = append(people, person)
-	json.NewEncoder(w).Encode(people)
+	users = append(users, person)
+	json.NewEncoder(w).Encode(users)
 }
 
 // Delete an item
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	log.Println("Delete people", params["id"])
-	for index, item := range people {
+	log.Println("Delete users", params["id"])
+	for index, item := range users {
 		if item.ID == params["id"] {
-			people = append(people[:index], people[index+1:]...)
+			users = append(users[:index], users[index+1:]...)
 			break
 		}
-		json.NewEncoder(w).Encode(people)
+		json.NewEncoder(w).Encode(users)
 	}
 }
