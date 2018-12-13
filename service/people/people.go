@@ -42,14 +42,25 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 // Display a single data
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	log.Println("Get user", params["id"])
-	for _, item := range people {
-		if item.ID == params["id"] {
-			json.NewEncoder(w).Encode(item)
-			return
-		}
+	usrId := params["id"]
+	log.Println("Get user", usrId)
+
+	driver.DbInit()
+	var person User
+	people = []User{}
+
+	rows, err := driver.Db.Query("SELECT * from users where user_id="+usrId)
+	global.LogFatal(err)
+
+	for rows.Next() {
+		err := rows.Scan(&person.ID, &person.Username, &person.FirstName,
+			&person.LastName, &person.RoleId, &person.LastAccess,
+			&person.Password, &person.RoleCd, &person.Active)
+		global.LogFatal(err)
+
+		people = append(people, person)
 	}
-	json.NewEncoder(w).Encode(&User{})
+	json.NewEncoder(w).Encode(people)
 }
 
 // create a new item
