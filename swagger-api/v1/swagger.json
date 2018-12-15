@@ -1,0 +1,140 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/people": {
+      "get": {
+        "description": "This will show all recorded people.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "people"
+        ],
+        "summary": "Lists all users.",
+        "operationId": "listPeople",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/usersResponse"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "description": "This will show the record of an identified user.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Lists user from their id.",
+        "operationId": "listUsers",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/userResponse"
+          },
+          "404": {
+            "$ref": "#/responses/jsonError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "title": "User description.",
+      "required": [
+        "user_id",
+        "username",
+        "password",
+        "active_yn"
+      ],
+      "properties": {
+        "active_yn": {
+          "description": "Active of the user",
+          "type": "boolean",
+          "x-go-name": "Active"
+        },
+        "last_access_tm": {
+          "description": "LastAccess of the user",
+          "type": "string",
+          "x-go-name": "LastAccess"
+        },
+        "password": {
+          "description": "Password of the user",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "role_cd": {
+          "description": "RoleCd of the user",
+          "type": "string",
+          "x-go-name": "RoleCd"
+        },
+        "role_id": {
+          "description": "RoleId of the user",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RoleId"
+        },
+        "user_fname": {
+          "description": "FirstName of the user",
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "user_id": {
+          "description": "ID of the user",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "user_lname": {
+          "description": "LastName of the user",
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "username": {
+          "description": "User name of the user",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-name": "User",
+      "x-go-package": "github.com/luizcavalieri/IoTendance-be/service/users"
+    }
+  },
+  "responses": {
+    "jsonError": {
+      "description": "JsonError is a generic error in JSON format"
+    },
+    "userResponse": {
+      "description": "UserResponse contains a single person information",
+      "schema": {
+        "$ref": "#/definitions/user"
+      }
+    },
+    "usersResponse": {
+      "description": "PeopleResponse contains all users from database information",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/user"
+        }
+      }
+    }
+  }
+}

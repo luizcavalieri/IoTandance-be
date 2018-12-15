@@ -20,3 +20,5 @@ Iotendance-be
 .env
 
 vendor
+
+gin-bin
