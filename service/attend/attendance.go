@@ -23,7 +23,7 @@ type IDParam struct {
 	ID string `json:"user_id"`
 }
 
-var users []User
+var attends []Attend
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// swagger:route GET /people people listPeople
@@ -49,8 +49,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	driver.DbInit()
-	var user User
-	users = []User{}
+	var attend Attend
+	attends = []Attend{}
 
 	rows, err := driver.Db.Query("SELECT * from users")
 	global.LogFatal(err)
@@ -58,12 +58,12 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&user.ID, &user.Username, &user.FirstName,
-			&user.LastName, &user.RoleId, &user.LastAccess,
-			&user.Password, &user.RoleCd, &user.Active)
+		err := rows.Scan(&attend.ID, &attend.Username, &attend.FirstName,
+			&attend.LastName, &attend.RoleId, &attend.LastAccess,
+			&attend.Password, &attend.RoleCd, &attend.Active)
 		global.LogFatal(err)
 
-		users = append(users, user)
+		attends = append(attends, attend)
 	}
 
 	json.NewEncoder(w).Encode(users)

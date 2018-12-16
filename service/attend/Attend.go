@@ -1,9 +1,9 @@
 package attend
 
-import "github.com/luizcavalieri/go-graphql-starter/model"
+import "github.com/luizcavalieri/IoTendance-be/service/users"
 
-// User description.
-// swagger:model user
+// Attend description.
+// swagger:model attend
 type Attend struct {
 	// ID of the attend
 	//
@@ -20,9 +20,39 @@ type Attend struct {
 	// Attendee
 	//
 	// required: false
-	Attendee *model.User `json:"attendee,omitempty"`
+	Attendee *Attendee `json:"attendee,omitempty"`
 	// Lesson attended
 	//
 	// required: false
 	Lesson int `json:"lesson,omitempty"`
+}
+
+
+// Attendee description.
+// swagger:model attendee
+type Attendee struct {
+	// ID of the attend
+	//
+	// required: true
+	ID int32 `json:"id,omitempty"`
+	// Attendee first name
+	//
+	// required: true
+	FirstName int8 `json:"fname,omitempty"`
+	// Attendee last name
+	//
+	// required: true
+	LastName int8 `json:"lname,omitempty"`
+	// Attendee preferred name
+	//
+	// required: true
+	PreferredName int8 `json:"prefname,omitempty"`
+	// Attendee start date
+	//
+	// required: true
+	StartDate string `json:"enrol_date,omitempty"`
+	// User entity
+	//
+	// required: true
+	User *users.User `json:"attendee,omitempty"`
 }
