@@ -1,4 +1,4 @@
-package users
+package attend
 
 // JsonError is a generic error in JSON format
 //

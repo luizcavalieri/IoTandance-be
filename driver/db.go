@@ -21,12 +21,12 @@ func DbInit() {
 	pgSslMode := os.Getenv("DB_SSL_MODE")
 
 	pgUrl, err := pq.ParseURL(
-		"postgres://"+pgUser+
-			":"+pgPassword+
-			"@"+pgHost+
-			":"+pgPort+
-			"/"+pgDbName+
-			"?sslmode="+pgSslMode)
+		"postgres://" + pgUser +
+			":" + pgPassword +
+			"@" + pgHost +
+			":" + pgPort +
+			"/" + pgDbName +
+			"?sslmode=" + pgSslMode)
 
 	global.LogFatal(err)
 
