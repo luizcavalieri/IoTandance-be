@@ -12,7 +12,7 @@ install: go-get
 
 ## start: Start in development mode. Auto-starts when code changes.
 start:
-	~/Sites/go/bin/gin -i --port 3000 --appPort 8002 run main.go
+	~/Sites/go/bin/gin -i --port 4000 --appPort 8089 run main.go
 
 ## swagger-generate: Generate swagger.json from documentation.
 swagger-generate:

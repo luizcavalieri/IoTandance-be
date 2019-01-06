@@ -7,7 +7,7 @@ import (
 
 	"github.com/lib/pq"
 
-	"github.com/luizcavalieri/IoTandance-be/global"
+	"github.com/luizcavalieri/IoTendance-be/global"
 )
 
 var Db *sql.DB
@@ -28,13 +28,13 @@ func DbInit() {
 			"/" + pgDbName +
 			"?sslmode=" + pgSslMode)
 
-	global.LogFatal(err)
+	global.LogFatal(err, "")
 
 	Db, err = sql.Open("postgres", pgUrl)
-	global.LogFatal(err)
+	global.LogFatal(err, "Connection db")
 
 	err = Db.Ping()
-	global.LogFatal(err)
+	global.LogFatal(err, "")
 
 	log.Println("Db successfully connected!")
 

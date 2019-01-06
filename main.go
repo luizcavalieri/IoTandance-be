@@ -25,5 +25,5 @@ func main() {
 
 	// create router and start listen on port 8000
 	route := router.NewRouter()
-	log.Fatal(http.ListenAndServe(":8002", setupGlobalMiddleware(route)))
+	log.Fatal(http.ListenAndServe(":8089", setupGlobalMiddleware(route)))
 }

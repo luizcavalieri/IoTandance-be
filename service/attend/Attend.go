@@ -27,7 +27,6 @@ type Attend struct {
 	Lesson int `json:"lesson,omitempty"`
 }
 
-
 // Attendee description.
 // swagger:model attendee
 type Attendee struct {
