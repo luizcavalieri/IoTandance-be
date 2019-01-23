@@ -1,4 +1,4 @@
-package users
+package user
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 
 // IDParam is used to identify a user
 //
-// swagger:parameters listUser
+// swagger:parameters users
 type IDParam struct {
 	// The ID of a user
 	//
@@ -26,22 +26,23 @@ type IDParam struct {
 var users []User
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	// swagger:route GET /people people listPeople
-	//
-	// Lists all users.
-	//
-	// This will show all recorded people.
-	//
-	//     Consumes:
-	//     - application/json
-	//
-	//     Produces:
-	//     - application/json
-	//
-	//     Schemes: http, https
-	//
-	//     Responses:
-	//       200: usersResponse
+	/* swagger:route GET /users people listPeople
+
+	   Lists all users.
+
+	   This will show all recorded people.
+
+	     Consumes:
+	     - application/json
+
+	     Produces:
+	     - application/json
+
+	     Schemes: http, https
+
+	     Responses:
+		   200: usersResponse
+	*/
 
 	log.Println("Get users")
 
@@ -126,28 +127,27 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// Display a single data
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	// swagger:route POST /users users createUsers
-	//
-	// Create user from username, user_fname, user_lname, role_id, password, role_cd, active_yn.
-	//
-	// This will show the record of an identified user.
-	//
-	//     Consumes:
-	//     - application/json
-	//
-	//     Produces:
-	//     - application/json
-	//
-	//     Schemes: http, https
-	//
-	//     Params:
-	//     - id: IDParam
-	//
-	//     Responses:
-	//       200: userResponse
-	//       404: jsonError
+	/*
+
+	 swagger:route POST /users users createUsers
+
+	 Create new user.
+
+	 This will create a record of an user.
+
+	     Consumes:
+	     - application/json
+
+	     Produces:
+	     - application/json
+
+	     Schemes: http, https
+
+	     Responses:
+	       200: createUsersResponse
+	       404: jsonError
+	*/
 
 	log.Println("Create user")
 

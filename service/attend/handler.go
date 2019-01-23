@@ -8,18 +8,18 @@ type jsonError struct {
 	Message string `json:"message"`
 }
 
-// UserResponse contains a single person information
+// AttendanceResponse contains a single person information
 //
-// swagger:response userResponse
-type userResponse struct {
+// swagger:response attendResponse
+type attendanceResponse struct {
 	// in: body
-	Payload *User `json:"user"`
+	Payload *Attend `json:"attend"`
 }
 
 // PeopleResponse contains all users from database information
 //
-// swagger:response usersResponse
-type usersResponse struct {
+// swagger:response attendancesResponse
+type attendancesResponse struct {
 	// in: body
-	Payload *[]User `json:"users"`
+	Payload *[]Attend `json:"attend"`
 }

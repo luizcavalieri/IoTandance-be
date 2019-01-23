@@ -3,7 +3,8 @@ package router
 import (
 	"net/http"
 
-	handler "github.com/luizcavalieri/IoTendance-be/service/users"
+	attendance "github.com/luizcavalieri/IoTendance-be/service/attend"
+	users "github.com/luizcavalieri/IoTendance-be/service/user"
 )
 
 // Route type description
@@ -22,18 +23,36 @@ var routes = Routes{
 		"CreateUser",
 		"POST",
 		"/users",
-		handler.CreateUser,
+		users.CreateUser,
 	},
 	Route{
 		"GetUsers",
 		"GET",
 		"/users",
-		handler.GetUsers,
+		users.GetUsers,
 	},
 	Route{
 		"GetUser",
 		"GET",
 		"/users/{id}",
-		handler.GetUser,
+		users.GetUser,
+	},
+	Route{
+		"GetAttendance",
+		"GET",
+		"/attendance",
+		attendance.GetAttendance,
+	},
+	Route{
+		"GetAttendeeLessonAttendance",
+		"GET",
+		"/attendance/attendee/{attendeeId}/lesson/{lessonId}",
+		attendance.GetAttendeeLessonAttendance,
+	},
+	Route{
+		"GetLessonAttendance",
+		"GET",
+		"/attendance/user/{userId}/lesson/{lessonId}",
+		attendance.GetLessonAttendance,
 	},
 }

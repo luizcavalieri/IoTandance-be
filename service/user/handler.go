@@ -1,4 +1,4 @@
-package users
+package user
 
 // JsonError is a generic error in JSON format
 //
@@ -22,4 +22,12 @@ type userResponse struct {
 type usersResponse struct {
 	// in: body
 	Payload *[]User `json:"users"`
+}
+
+// PeopleResponse contains the user created in database
+//
+// swagger:response createUsersResponse
+type createUsersResponse struct {
+	// in: body
+	ID int `json:"id"`
 }

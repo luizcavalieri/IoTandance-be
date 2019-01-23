@@ -1,5 +1,46 @@
-package users
+package user
 
+/*
+Params:
+
+	      - name: user_fname
+			type: string
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+	      - name: user_lname
+			type: string
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+	      - name: role_id
+			type: int
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+	      - name: password
+			type: string
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+	      - name: role_cd
+			type: string
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+	      - name: active_yn
+			type: boolean
+			in: query
+			maxItems: 10
+			minItems: 3
+			unique: false
+
+*/
 // User description.
 // swagger:model user
 type User struct {

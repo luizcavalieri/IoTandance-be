@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "paths": {
-    "/people": {
+    "/users": {
       "get": {
         "description": "This will show all recorded people.",
         "consumes": [
@@ -22,6 +22,32 @@
         "responses": {
           "200": {
             "$ref": "#/responses/usersResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "This will create a record of an user.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Create new user.",
+        "operationId": "createUsers",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createUsersResponse"
+          },
+          "404": {
+            "$ref": "#/responses/jsonError"
           }
         }
       }
@@ -57,8 +83,9 @@
   },
   "definitions": {
     "user": {
+      "description": "name: user_fname\ntype: string\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\nname: user_lname\ntype: string\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\nname: role_id\ntype: int\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\nname: password\ntype: string\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\nname: role_cd\ntype: string\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\nname: active_yn\ntype: boolean\nin: query\nmaxItems: 10\nminItems: 3\nunique: false\n\n\nUser description.",
       "type": "object",
-      "title": "User description.",
+      "title": "Params:",
       "required": [
         "user_id",
         "username",
@@ -118,6 +145,9 @@
     }
   },
   "responses": {
+    "createUsersResponse": {
+      "description": "PeopleResponse contains the user created in database"
+    },
     "jsonError": {
       "description": "JsonError is a generic error in JSON format"
     },
