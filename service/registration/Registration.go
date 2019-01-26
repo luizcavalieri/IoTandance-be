@@ -1,6 +1,13 @@
 package registration
 
-import "time"
+import (
+	"github.com/luizcavalieri/IoTendance-be/service/attend"
+	"github.com/luizcavalieri/IoTendance-be/service/class"
+	"github.com/luizcavalieri/IoTendance-be/service/lesson"
+	"github.com/luizcavalieri/IoTendance-be/service/room"
+	"github.com/luizcavalieri/IoTendance-be/service/timeslot"
+	"time"
+)
 
 // Registration description.
 // swagger:model registration
@@ -45,4 +52,33 @@ type Registration struct {
 	//
 	// required: false
 	Qualification int `json:"qualification,omitempty"`
+}
+
+// RegistrationClass description.
+// swagger:model AttendanceClass
+type RegistrarClass struct {
+	// Attendee of the class
+	//
+	// required: true
+	Attendee attend.Attendee `json:"attendee"`
+	// Class first name
+	//
+	// required: true
+	Class class.Class `json:"class"`
+	// Registration last name
+	//
+	// required: true
+	Registration Registration `json:"registration"`
+	// Lesson preferred name
+	//
+	// required: true
+	Lesson lesson.Lesson `json:"lesson,omitempty"`
+	// TimeSlot start date
+	//
+	// required: true
+	TimeSlot timeslot.TimeSlot `json:"timeslot"`
+	// Room entity
+	//
+	// required: true
+	Room room.Room `json:"room"`
 }

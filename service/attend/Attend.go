@@ -1,6 +1,8 @@
 package attend
 
-import "github.com/luizcavalieri/IoTendance-be/service/user"
+import (
+	"github.com/luizcavalieri/IoTendance-be/service/user"
+)
 
 // Attend description.
 // swagger:model attend
@@ -53,5 +55,5 @@ type Attendee struct {
 	// User entity
 	//
 	// required: true
-	User *user.User `json:"attendee,omitempty"`
+	User *user.User `json:"user,omitempty"`
 }

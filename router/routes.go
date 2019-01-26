@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/luizcavalieri/IoTendance-be/service/registration"
 	"net/http"
 
 	attendance "github.com/luizcavalieri/IoTendance-be/service/attend"
@@ -19,6 +20,8 @@ type Route struct {
 type Routes []Route
 
 var routes = Routes{
+
+	/**** USER ****/
 	Route{
 		"CreateUser",
 		"POST",
@@ -37,6 +40,8 @@ var routes = Routes{
 		"/users/{id}",
 		users.GetUser,
 	},
+
+	/**** ATTENDANCE ****/
 	Route{
 		"GetAttendance",
 		"GET",
@@ -49,10 +54,18 @@ var routes = Routes{
 		"/attendance/attendee/{attendeeId}/lesson/{lessonId}",
 		attendance.GetAttendeeLessonAttendance,
 	},
+
+	/**** REGISTRATION ****/
 	Route{
-		"GetLessonAttendance",
+		"GetLessonEnrollmentsByUser",
 		"GET",
-		"/attendance/user/{userId}/lesson/{lessonId}",
-		attendance.GetLessonAttendance,
+		"/registration/user/{userId}/lesson/{lessonId}",
+		registration.GetLessonEnrollmentsByUser,
+	},
+	Route{
+		"GetLessonEnrollments",
+		"GET",
+		"/registration/lesson/{lessonId}",
+		registration.GetLessonEnrollments,
 	},
 }
