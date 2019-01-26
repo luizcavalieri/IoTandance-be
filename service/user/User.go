@@ -93,6 +93,9 @@ type LoginUser struct {
 	Password string `json:"password"`
 }
 
+type LoginResponse struct {
+}
+
 func (logInUsr *LoginUser) getJwtToken() string {
 	return logInUsr.Password + logInUsr.Username
 }

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// LoggingResponseWriter will encapsulate a standard ResponseWritter with a copy of its statusCode
+// LoggingResponseWriter will encapsulate a standard ResponseWriter with a copy of its statusCode
 type LoggingResponseWriter struct {
 	http.ResponseWriter
 	statusCode int
@@ -29,6 +29,7 @@ func Logger(inner http.Handler) http.Handler {
 		start := time.Now()
 		wrapper := ResponseWriterWrapper(w)
 		inner.ServeHTTP(wrapper, r)
+
 		// 127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326 286.219µs
 		log.Printf("%s %s %s [%v] \"%s %s %s\" %d %d \"%s\" %s",
 			r.RemoteAddr,
