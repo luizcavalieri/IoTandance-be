@@ -94,7 +94,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	//       404: jsonError
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
 
 	params := mux.Vars(r)
 	usrId := params["id"]
@@ -103,7 +102,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	driver.DbInit()
 	var user User
 
-	rows, err := driver.Db.Query("SELECT * from users where user_id=" + usrId)
+	rows, err := driver.Db.Query("SELECT * from users where user_id=$1", usrId)
 	global.LogFatal(err, "No user found with the id")
 
 	for rows.Next() {
@@ -150,7 +149,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	*/
 
 	log.Println("Create user")
-
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
 	driver.DbInit()
@@ -191,6 +189,81 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 		json.NewEncoder(w).Encode(userId)
 		w.WriteHeader(http.StatusOK)
+	}
+
+	return
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+
+	/*
+
+	 swagger:route POST /users users Login
+
+	 This will verify if there is user with the combination of password and username.
+
+	 This will login the user into the system.
+
+	     Consumes:
+	     - application/json
+
+	     Produces:
+	     - application/json
+
+	     Schemes: http, https
+
+	     Responses:
+	       200: getUserResponse
+	       404: jsonError
+	*/
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var usrLgn LoginUser
+	json.NewDecoder(r.Body).Decode(&usrLgn)
+	username := usrLgn.Username
+	password := usrLgn.Password
+	log.Println("Get user ", usrLgn.Username)
+
+	driver.DbInit()
+	var user User
+
+	rows, err := driver.Db.Query(""+
+		"SELECT * "+
+		"from users "+
+		"where username=$1"+
+		"  and password=$2",
+		username,
+		password,
+	)
+	global.LogFatal(err, "No user found with the combination of username and password")
+
+	var count int
+	rows.Scan(&count)
+
+	if count == 0 {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(user)
+
+	} else {
+		for rows.Next() {
+			err := rows.Scan(&user.ID, &user.Username, &user.FirstName,
+				&user.LastName, &user.RoleId, &user.LastAccess,
+				&user.Password, &user.RoleCd, &user.Active)
+
+			if user.Username == username && user.Password == password {
+				w.WriteHeader(http.StatusOK)
+
+				time.Sleep(500 * time.Millisecond)
+				if err := json.NewEncoder(w).Encode(user); err != nil {
+					global.LogFatal(err, "")
+				}
+				return
+			}
+			global.LogFatal(err, "User not found")
+
+		}
+		json.NewEncoder(w).Encode(user)
 	}
 
 	return

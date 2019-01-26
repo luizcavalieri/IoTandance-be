@@ -81,3 +81,18 @@ type User struct {
 	// required: true
 	Active bool `json:"active_yn,omitempty"`
 }
+
+type LoginUser struct {
+	// Username of the user
+	//
+	// required: true
+	Username string `json:"username"`
+	// Password of the user
+	//
+	// required: true
+	Password string `json:"password"`
+}
+
+func (logInUsr *LoginUser) getJwtToken() string {
+	return logInUsr.Password + logInUsr.Username
+}

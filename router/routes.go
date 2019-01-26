@@ -40,6 +40,12 @@ var routes = Routes{
 		"/users/{id}",
 		users.GetUser,
 	},
+	Route{
+		"Login",
+		"GET",
+		"/login",
+		users.Login,
+	},
 
 	/**** ATTENDANCE ****/
 	Route{
