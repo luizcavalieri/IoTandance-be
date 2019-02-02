@@ -228,7 +228,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var user User
 
 	rows, err := driver.Db.Query(
-		`SELECT * from users where username='%s' and password='%s'`,
+		`SELECT * from users where username=$1 and password=$2`,
 		username,
 		password)
 	global.LogFatal(err, `No user found with the combination of username and password`)
