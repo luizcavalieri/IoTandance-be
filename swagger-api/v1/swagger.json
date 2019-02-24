@@ -141,7 +141,7 @@
         }
       },
       "x-go-name": "User",
-      "x-go-package": "github.com/luizcavalieri/IoTendance-be/service/users"
+      "x-go-package": "github.com/luizcavalieri/iotendance-be/service/users"
     }
   },
   "responses": {

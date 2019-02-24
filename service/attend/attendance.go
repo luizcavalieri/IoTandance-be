@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/luizcavalieri/IoTendance-be/driver"
-	"github.com/luizcavalieri/IoTendance-be/global"
+	"github.com/luizcavalieri/iotendance-be/driver"
+	"github.com/luizcavalieri/iotendance-be/global"
 )
 
 // IDParam is used to identify a user

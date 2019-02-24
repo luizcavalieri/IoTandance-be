@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/luizcavalieri/IoTendance-be/driver"
-	"github.com/luizcavalieri/IoTendance-be/global"
+	"github.com/luizcavalieri/iotendance-be/driver"
+	"github.com/luizcavalieri/iotendance-be/global"
 )
 
 // IDParam is used to identify a user
@@ -75,11 +75,15 @@ func GetLessonEnrollmentsByUser(w http.ResponseWriter, r *http.Request) {
 			"          ts.start_time," +
 			"          ts.end_time," +
 			"          st.id," +
-			"		   rm.name " +
+			"		   rm.name, " +
+			"		   at.attend_id, " +
+			"		   at.hours_attend, " +
+			"		   at.late " +
 			"from attendee st " +
 			"	inner join registration en on en.attendee_id = st.id " +
 			" 	inner join class cl on en.class_id = cl.class_id " +
 			"	inner join lesson ls  on ls.class_id = cl.class_id " +
+			"	full outer join attend at on at.attendee_id = st.id and at.lesson_id = ls.lesson_id " +
 			"	inner join rooms rm on rm.room_id = ls.lesson_room " +
 			"	inner join timeslots ts on ts.slot_id = ls.lesson_timeslot and " +
 			"						 ls.lesson_teacher = " + usrId + " and " +
@@ -105,6 +109,9 @@ func GetLessonEnrollmentsByUser(w http.ResponseWriter, r *http.Request) {
 			&registrarCls.TimeSlot.EndTime,
 			&registrarCls.Attendee.ID,
 			&registrarCls.Room.Name,
+			&registrarCls.Attend.ID,
+			&registrarCls.Attend.HoursAttend,
+			&registrarCls.Attend.Late,
 		)
 		global.LogFatal(err, "Not possible to add record to results.")
 

@@ -1,11 +1,11 @@
 package router
 
 import (
-	"github.com/luizcavalieri/IoTendance-be/service/registration"
+	"github.com/luizcavalieri/iotendance-be/service/registration"
 	"net/http"
 
-	attendance "github.com/luizcavalieri/IoTendance-be/service/attend"
-	users "github.com/luizcavalieri/IoTendance-be/service/user"
+	attendance "github.com/luizcavalieri/iotendance-be/service/attend"
+	users "github.com/luizcavalieri/iotendance-be/service/user"
 )
 
 // Route type description

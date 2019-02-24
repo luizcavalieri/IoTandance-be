@@ -1,7 +1,9 @@
 package attend
 
 import (
-	"github.com/luizcavalieri/IoTendance-be/service/user"
+	"database/sql"
+
+	"github.com/luizcavalieri/iotendance-be/service/user"
 )
 
 // Attend description.
@@ -10,23 +12,23 @@ type Attend struct {
 	// ID of the attend
 	//
 	// required: true
-	ID int64 `json:"id,omitempty"`
+	ID sql.NullInt64 `json:"id,omitempty"`
 	// How many hours attendee was present
 	//
 	// required: true
-	HoursAttend int64 `json:"hours_attend,omitempty"`
+	HoursAttend sql.NullInt64 `json:"hours_attend,omitempty"`
 	// Late if attendee is late to the session
 	//
 	// required: false
-	Late bool `json:"late,omitempty"`
+	Late sql.NullBool `json:"late,omitempty"`
 	// Attendee
 	//
 	// required: false
-	Attendee int64 `json:"attendee_id,omitempty"`
+	Attendee sql.NullInt64 `json:"attendee_id,omitempty"`
 	// Lesson attended
 	//
 	// required: false
-	Lesson int64 `json:"lesson,omitempty"`
+	Lesson sql.NullInt64 `json:"lesson,omitempty"`
 }
 
 // Attendee description.

@@ -7,7 +7,7 @@ import (
 	"github.com/rs/cors"
 	"github.com/subosito/gotenv"
 
-	"github.com/luizcavalieri/IoTendance-be/router"
+	"github.com/luizcavalieri/iotendance-be/router"
 )
 
 func init() {

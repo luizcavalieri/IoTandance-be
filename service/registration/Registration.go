@@ -1,11 +1,11 @@
 package registration
 
 import (
-	"github.com/luizcavalieri/IoTendance-be/service/attend"
-	"github.com/luizcavalieri/IoTendance-be/service/class"
-	"github.com/luizcavalieri/IoTendance-be/service/lesson"
-	"github.com/luizcavalieri/IoTendance-be/service/room"
-	"github.com/luizcavalieri/IoTendance-be/service/timeslot"
+	"github.com/luizcavalieri/iotendance-be/service/attend"
+	"github.com/luizcavalieri/iotendance-be/service/class"
+	"github.com/luizcavalieri/iotendance-be/service/lesson"
+	"github.com/luizcavalieri/iotendance-be/service/room"
+	"github.com/luizcavalieri/iotendance-be/service/timeslot"
 	"time"
 )
 
@@ -81,4 +81,8 @@ type RegistrarClass struct {
 	//
 	// required: true
 	Room room.Room `json:"room"`
+	// Attend entity
+	//
+	// required: false
+	Attend attend.Attend `json:"attend,omitempty"`
 }

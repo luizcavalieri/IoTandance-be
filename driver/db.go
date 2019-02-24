@@ -7,7 +7,7 @@ import (
 
 	"github.com/lib/pq"
 
-	"github.com/luizcavalieri/IoTendance-be/global"
+	"github.com/luizcavalieri/iotendance-be/global"
 )
 
 var Db *sql.DB
